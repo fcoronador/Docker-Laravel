@@ -1,0 +1,41 @@
+version: '2'
+services:
+  web:
+    build: ./proyecto
+    container_name: Bphp_apache
+    depends_on:
+        - db
+        - pgdb
+    volumes:
+        - ./proyecto:/var/www/html/
+        - ./confphp/ini:/usr/local/etc/php/conf.d
+    ports:
+        - 8000:80
+        - 8080:8080
+        - 8180:8180
+  db:
+    image: mysql:8.0
+    container_name: Bmysqldb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: dbPilar
+          MYSQL_USER: user
+          MYSQL_PASSWORD: user
+    ports:
+          - 8085:3306
+  pgdb:
+    image: postgres:9.6.17
+    container_name: Bmypg
+    environment:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: pilardb
+    ports:
+         - 8082:5432
+  adminer:
+    container_name: Adminer
+    image: adminer
+    ports:
+      - 8090:8080
