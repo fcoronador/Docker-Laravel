@@ -17,8 +17,9 @@ RUN apt-get install php7.3 -y
 
 RUN apt-get install composer -y
 RUN apt-get install vim -y
+RUN composer global require laravel/installer
 
-#RUN composer create-project --prefer-dist laravel/laravel Boutique "5.8.*"
+#RUN composer create-project laravel/laravel mascotaslinea "7.0.*"
 
 #RUN composer update 
 #RUN /ProyectoNuevo/php artisan key:generate
