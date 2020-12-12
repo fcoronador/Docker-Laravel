@@ -2,7 +2,10 @@ version: '2'
 services:
   web:
     build: ./proyecto
-    container_name: Bphp_apache
+    container_name: Bphp_apache_test
+    working_dir: /var/www/html/Proyecto1/
+    entrypoint: php artisan serve --port=8080 --host 0.0.0.0
+    tty: true 
     depends_on:
         - db
         - pgdb
@@ -14,10 +17,9 @@ services:
         - 8080:8080
         - 8180:8180
   db:
-    image: mysql:8.0
-    container_name: Bmysqldb
+    image: mysql
+    container_name: Bmysqldb_test
     command: --default-authentication-plugin=mysql_native_password
-    restart: always
     environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: dbPilar
@@ -26,8 +28,8 @@ services:
     ports:
           - 8085:3306
   pgdb:
-    image: postgres:9.6.17
-    container_name: Bmypg
+    image: postgres
+    container_name: Bmypg_test
     environment:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: password
@@ -35,7 +37,7 @@ services:
     ports:
          - 8082:5432
   adminer:
-    container_name: Adminer
+    container_name: Adminer_test
     image: adminer
     ports:
       - 8090:8080
